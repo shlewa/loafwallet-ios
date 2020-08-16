@@ -21,8 +21,13 @@ struct Partner {
     let details: String
      
     static func partnerDataArray() -> [Partner] {
-        let simplex = Partner(logo: UIImage(named: "simplexLogo")!, headerTitle: S.BuyCenter.Cells.simplexTitle, details: S.BuyCenter.Cells.simplexFinancialDetails)
-        return [simplex]
+        let changeNow = Partner(logo: UIImage(named: "changeNowLogo")!,
+                                headerTitle: S.BuyCenter.Cells.changeNowTitle,
+                                details: S.BuyCenter.Cells.changeNowFinancialDetails)
+        let simplex = Partner(logo: UIImage(named: "simplexLogo")!,
+                              headerTitle: S.BuyCenter.Cells.simplexTitle,
+                              details: S.BuyCenter.Cells.simplexFinancialDetails)
+        return [changeNow, simplex]
     }
      
 //TODO: Uncomment as integration progresses, kcw-grunt

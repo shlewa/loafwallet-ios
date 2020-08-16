@@ -5,10 +5,12 @@ project 'loafwallet.xcodeproj', 'Debug' => :debug,'Release' => :release
 use_frameworks!
 platform :ios, '13.0'
 
-#Shared Cocopods
+#Shared Cocoapods
 def shared_pods
+
   pod 'Firebase/Crashlytics' 
   pod 'Firebase/Analytics'
+  pod 'CNIntegration', :git => 'https://github.com/ChangeNOW-lab/ChangeNow_Integration_iOS.git', :tag => '0.1.1'
 
   # add after v2.6.0 pod 'SwiftLint'
 end
