@@ -5,11 +5,8 @@ project 'loafwallet.xcodeproj', 'Debug' => :debug,'Release' => :release
 use_frameworks!
 
 
-#Shared Cocopods
+#Shared Cocoapods
 def shared_pods
-  pod 'Alamofire', '~> 4.7'
-  pod 'SwiftyJSON', '~> 4.0'
-  pod 'CryptoSwift', '~> 1.0'
   pod 'Firebase/Crashlytics' 
   pod 'Firebase/Analytics'
 
@@ -25,11 +22,7 @@ target 'loafwallet' do
   
   target 'loafwalletTests' do
     inherit! :search_paths
-  end
-  
-  target 'loafwalletUITests' do
-    inherit! :search_paths
-  end
+  end 
   
 end
  

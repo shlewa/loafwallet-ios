@@ -55,7 +55,8 @@ class BuyTableViewController: UITableViewController {
         
         tableView.tableFooterView = UIView()
         
-        LWAnalytics.logEventWithParameters(itemName: ._20191105_DTBT)
+        let _ = LWAnalytics(itemName: ._20191105_DTBT)
+        
         setupData()
     }
     
