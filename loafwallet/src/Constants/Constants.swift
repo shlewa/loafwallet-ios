@@ -80,7 +80,10 @@ struct C {
     static let btcCurrencyCode = "LTC"
     static let null = "(null)"
     static let maxMemoLength = 250
-    static let feedbackEmail = "iosagent+feeback@litecoinfoundation.net"
+    static let feedbackEmail = "feedback@litecoinfoundation.zendesk.com"
+    static let supportEmail = "support@litecoinfoundation.zendesk.com"
+
+
     static let reviewLink = "https://itunes.apple.com/app/loafwallet-litecoin-wallet/id1119332592?action=write-review"
     static var standardPort: Int {
         return E.isTestnet ? 19335 : 9333
