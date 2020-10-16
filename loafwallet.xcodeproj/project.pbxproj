@@ -123,7 +123,6 @@
 		24AF00FE221B331D00FF636F /* WarningConfirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24AF00FC221B331D00FF636F /* WarningConfirmation.storyboard */; };
 		24AF0101221B349100FF636F /* WarningConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AF00FF221B349100FF636F /* WarningConfirmationViewController.swift */; };
 		24B523AD238A53DC0030594D /* BIP39Words.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24B523AF238A53DC0030594D /* BIP39Words.plist */; };
-		24B8FAC12160497C00A155B1 /* BuyCenterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8FAC02160497B00A155B1 /* BuyCenterTableViewController.swift */; };
 		24B8FAC4216128A000A155B1 /* PartnerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8FAC3216128A000A155B1 /* PartnerData.swift */; };
 		24B8FAD22162B10200A155B1 /* BuyCenterWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8FAD12162B10200A155B1 /* BuyCenterWebViewController.swift */; };
 		24B8FAD72162B6FB00A155B1 /* bitrefill_index.html in Resources */ = {isa = PBXBuildFile; fileRef = 24B8FAD62162B6FB00A155B1 /* bitrefill_index.html */; };
@@ -887,7 +886,6 @@
 		24AF00FF221B349100FF636F /* WarningConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningConfirmationViewController.swift; sourceTree = "<group>"; };
 		24B523AE238A53DC0030594D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/BIP39Words.plist; sourceTree = "<group>"; };
 		24B523B0238A53E40030594D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hans"; path = "zh-Hans.lproj/BIP39Words.plist"; sourceTree = "<group>"; };
-		24B8FAC02160497B00A155B1 /* BuyCenterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyCenterTableViewController.swift; sourceTree = "<group>"; };
 		24B8FAC3216128A000A155B1 /* PartnerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerData.swift; sourceTree = "<group>"; };
 		24B8FAD12162B10200A155B1 /* BuyCenterWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCenterWebViewController.swift; sourceTree = "<group>"; };
 		24B8FAD62162B6FB00A155B1 /* bitrefill_index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = bitrefill_index.html; sourceTree = "<group>"; };
@@ -2361,7 +2359,6 @@
 		24C516502158820E007CE038 /* Buy */ = {
 			isa = PBXGroup;
 			children = (
-				24B8FAC02160497B00A155B1 /* BuyCenterTableViewController.swift */,
 				24B8FAD12162B10200A155B1 /* BuyCenterWebViewController.swift */,
 				248BFE2323AAD53700CE1A71 /* BuyTableViewController.swift */,
 				248BFE2523AB302200CE1A71 /* BuyWKWebViewController.swift */,
@@ -4507,7 +4504,6 @@
 				CEC6AA3D1DEE687000EE5AFD /* RadialGradientView.swift in Sources */,
 				2494038123AF208F00369261 /* PromptModalViewController.swift in Sources */,
 				CEEC70921E95DA4400EF788E /* GradientSwitch.swift in Sources */,
-				24B8FAC12160497C00A155B1 /* BuyCenterTableViewController.swift in Sources */,
 				CE0CD1591DBFBCF5004023DA /* ModalPresenter.swift in Sources */,
 				CEE20C2F1EA3E5820086F724 /* BlinkingView.swift in Sources */,
 				CEC6AA441DEFCDE900EE5AFD /* ModalViewController.swift in Sources */,
@@ -5002,7 +4998,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = loafwallet/loafwallet.entitlements;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5016,7 +5012,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				OTHER_SWIFT_FLAGS = "-DDebug $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet;
 				PRODUCT_MODULE_NAME = loafwallet;
@@ -5033,14 +5029,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				IBSC_MODULE = loafwallet_WatchKit_Extension;
 				INFOPLIST_FILE = "$(SRCROOT)/loafwallet WatchKit App/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -5204,7 +5200,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = "$(SRCROOT)/loafwallet WatchKit Extension/Info.plist";
@@ -5213,7 +5209,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.watchkitapp.watchkitextension;
 				PRODUCT_NAME = Litewallet;
 				SDKROOT = watchos;
@@ -5228,7 +5224,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = TodayExtension/Info.plist;
@@ -5238,7 +5234,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.TodayExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5250,7 +5246,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
@@ -5260,7 +5256,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.NotificationServiceExtension;
 				PRODUCT_NAME = Litewallet;
 				PROVISIONING_PROFILE = "";
@@ -5615,7 +5611,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = "$(SRCROOT)/loafwallet WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5623,7 +5619,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.watchkitapp.watchkitextension;
 				PRODUCT_NAME = Litewallet;
 				SDKROOT = watchos;
@@ -5639,13 +5635,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				IBSC_MODULE = loafwallet_WatchKit_Extension;
 				INFOPLIST_FILE = "$(SRCROOT)/loafwallet WatchKit App/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -5662,7 +5658,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = loafwallet/loafwallet.entitlements;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
@@ -5675,7 +5671,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet;
 				PRODUCT_MODULE_NAME = loafwallet;
@@ -5690,7 +5686,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = TodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -5699,7 +5695,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.TodayExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5711,7 +5707,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -5720,7 +5716,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.NotificationServiceExtension;
 				PRODUCT_NAME = Litewallet;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5813,7 +5809,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = loafwallet/loafwallet.entitlements;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5827,7 +5823,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				OTHER_SWIFT_FLAGS = "-DDebug -DTestnet $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet;
 				PRODUCT_MODULE_NAME = loafwallet;
@@ -5844,13 +5840,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				IBSC_MODULE = loafwallet_WatchKit_Extension;
 				INFOPLIST_FILE = "$(SRCROOT)/loafwallet WatchKit App/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -5865,7 +5861,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = "$(SRCROOT)/loafwallet WatchKit Extension/Info.plist";
@@ -5874,7 +5870,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.watchkitapp.watchkitextension;
 				PRODUCT_NAME = Litewallet;
 				SDKROOT = watchos;
@@ -5889,7 +5885,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = TodayExtension/Info.plist;
@@ -5899,7 +5895,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.TodayExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5911,7 +5907,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
@@ -5921,7 +5917,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.litecoin.loafwallet.NotificationServiceExtension;
 				PRODUCT_NAME = Litewallet;
 				PROVISIONING_PROFILE_SPECIFIER = "";
