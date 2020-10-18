@@ -16,8 +16,7 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
-
-## Other
+.DS_Store
 *.moved-aside
 *.xcuserstate
 
@@ -29,13 +28,7 @@ xcuserdata/
 
 ## Playgrounds
 timeline.xctimeline
-playground.xcworkspace
-
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-.build/
+loafwallet/Playgrounds
 
 # CocoaPods
 #
@@ -63,7 +56,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
-Screenshots/shots
-.DS_Store
-*.xcscheme
+
+
+## CI / CD
 loafwallet/GoogleService-Info.plist
