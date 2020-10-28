@@ -21,10 +21,6 @@ target 'loafwallet' do
   platform :ios, '12.0'
   shared_pods
   
-  target 'TodayExtension' do
-    inherit! :search_paths
-  end
-  
   target 'loafwalletTests' do
     inherit! :search_paths
   end
