@@ -1263,3 +1263,9 @@
 
 /* Message for luxury fee */
 "FeeSelector.luxuryMessage" = "This option virtually guarantees acceptance of your transaction though you are paying a premium.";
+
+/* Support the Litecoin Foundation */
+"Support.title" = "";
+
+/* Support the Litecoin Foundation */
+"SupportTheFoundation.title" = "";

@@ -10,6 +10,7 @@ import UIKit
 import LocalAuthentication
 import BRCore 
 import FirebaseAnalytics
+import SwiftUI
 
 typealias PresentScan = ((@escaping ScanCompletion) -> Void)
 
@@ -35,7 +36,6 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
         self.initialRequest = initialRequest
         self.currency = ShadowButton(title: S.Symbols.currencyButtonTitle(maxDigits: store.state.maxDigits), type: .tertiary)
         self.amountView = AmountViewController(store: store, isPinPadExpandedAtLaunch: false)
-        self.donationCell = DonationSetupCell(store: store, isLTCSwapped: store.state.isLtcSwapped)
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
@@ -53,7 +53,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
     private let amountView: AmountViewController
     private let addressCell = AddressCell()
     private let descriptionCell = DescriptionSendCell(placeholder: S.Send.descriptionLabel)
-    private let donationCell: DonationSetupCell
+    private let supportLFCell = UIHostingController(rootView: SupportLFView(viewModel: SupportLFViewModel()))
     private var sendButton = ShadowButton(title: S.Send.sendLabel, type: .flatLitecoinBlue)  
     private let currency: ShadowButton
     private let currencyBorder = UIView(color: .secondaryShadow)
@@ -82,7 +82,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
         walletManager.wallet?.feePerKb = store.state.fees.regular
 
         view.addSubview(addressCell)
-        view.addSubview(donationCell)
+        view.addSubview(supportLFCell.view)
         view.addSubview(descriptionCell)
         view.addSubview(sendButton)
         
@@ -94,14 +94,14 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
                 amountView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor) ])
         })
         
-        donationCell.constrain([
-                  donationCell.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
-                  donationCell.topAnchor.constraint(equalTo: amountView.view.bottomAnchor),
-                  donationCell.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
-                  donationCell.heightAnchor.constraint(equalToConstant: 72.0)])
+        supportLFCell.view.constrain([
+            supportLFCell.view.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
+                                        supportLFCell.view.topAnchor.constraint(equalTo: amountView.view.bottomAnchor),
+                                        supportLFCell.view.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
+                                        supportLFCell.view.heightAnchor.constraint(equalToConstant: 72.0)])
         descriptionCell.constrain([
             descriptionCell.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
-            descriptionCell.topAnchor.constraint(equalTo: donationCell.bottomAnchor),
+                                    descriptionCell.topAnchor.constraint(equalTo: supportLFCell.view.bottomAnchor),
             descriptionCell.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
             descriptionCell.heightAnchor.constraint(equalTo: descriptionCell.textView.heightAnchor, constant: C.padding[4]) ])
         descriptionCell.accessoryView.constrain([
@@ -117,7 +117,6 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
                         callback: {
                             if let balance = $0.walletState.balance {
                                 self.balance = balance
-                                self.donationCell.donateButton.isEnabled = (balance >= (kDonationAmount * 2)) ? true : false
                             }
         })
     }
@@ -136,8 +135,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
         addressCell.paste.addTarget(self, action: #selector(SendViewController.pasteTapped), for: .touchUpInside)
         addressCell.scan.addTarget(self, action: #selector(SendViewController.scanTapped), for: .touchUpInside)
         sendButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
-        donationCell.donateButton.isEnabled = false
-        
+          
         descriptionCell.didReturn = { textView in
             textView.resignFirstResponder()
         }
@@ -176,49 +174,45 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
                 self?.descriptionCell.textView.resignFirstResponder()
                 self?.addressCell.textField.resignFirstResponder()
             }
-        }
-        amountView.didShowFiat = { isLTCSwapped in
-            guard let fiatSymbol = self.store.state.currentRate?.currencySymbol else { return }
-            self.donationCell.donateButton.title = String(format: S.Donate.title, isLTCSwapped ? "Ł":"\(fiatSymbol)")
-        }
+        } 
  
-        donationCell.didTapToDonate = {
+        supportLFCell.rootView.didTapToSupport = {
  
-            if let dynamicDonate = UIStoryboard.init(name: "DynamicDonation", bundle: nil).instantiateViewController(withIdentifier: "DynamicDonation") as? DynamicDonationViewController {
-                if #available(iOS 13.0, *) {
-                    dynamicDonate.isModalInPresentation = true
-                }
-                
-                dynamicDonate.store = self.store 
-                dynamicDonate.senderClass = self.sender
-                dynamicDonate.balance = self.balance
-                dynamicDonate.providesPresentationContextTransitionStyle = true
-                dynamicDonate.definesPresentationContext = true
-                dynamicDonate.modalPresentationStyle = .fullScreen
-                dynamicDonate.modalTransitionStyle = .crossDissolve
-                
-                dynamicDonate.successCallback = {
-                    if self.sender.createTransaction(amount: dynamicDonate.finalDonationAmount.rawValue, to: dynamicDonate.finalDonationAddress) {
-                        self.descriptionCell.textView.text = dynamicDonate.finalDonationMemo
-                            dynamicDonate.dismiss(animated: true, completion: {
-                             self.send()
-                                
-                             let properties: [String: String] = ["ADDRESS_SCHEME":"v2",
-                                                                 "PLATFORM":"iOS",
-                                                                "DONATION_ACCOUNT": dynamicDonate.finalDonationMemo,
-                                                                "DONATION_AMOUNT": String(describing: dynamicDonate.finalDonationAmount.rawValue)]
-                            
-                             LWAnalytics.logEventWithParameters(itemName: ._20200223_DD, properties: properties)
-                        })
-                    }
-                }
-                dynamicDonate.cancelCallback = {
-                     dynamicDonate.dismiss(animated: true, completion: {
-                        self.sender.transaction = nil
-                    })
-                }
-                self.present(dynamicDonate, animated: true, completion: nil) 
-            }
+//            if let dynamicDonate = UIStoryboard.init(name: "DynamicDonation", bundle: nil).instantiateViewController(withIdentifier: "DynamicDonation") as? DynamicDonationViewController {
+//                if #available(iOS 13.0, *) {
+//                    dynamicDonate.isModalInPresentation = true
+//                }
+//                
+//                dynamicDonate.store = self.store 
+//                dynamicDonate.senderClass = self.sender
+//                dynamicDonate.balance = self.balance
+//                dynamicDonate.providesPresentationContextTransitionStyle = true
+//                dynamicDonate.definesPresentationContext = true
+//                dynamicDonate.modalPresentationStyle = .fullScreen
+//                dynamicDonate.modalTransitionStyle = .crossDissolve
+//                
+//                dynamicDonate.successCallback = {
+//                    if self.sender.createTransaction(amount: dynamicDonate.finalDonationAmount.rawValue, to: dynamicDonate.finalDonationAddress) {
+//                        self.descriptionCell.textView.text = dynamicDonate.finalDonationMemo
+//                            dynamicDonate.dismiss(animated: true, completion: {
+//                             self.send()
+//                                
+//                             let properties: [String: String] = ["ADDRESS_SCHEME":"v2",
+//                                                                 "PLATFORM":"iOS",
+//                                                                "DONATION_ACCOUNT": dynamicDonate.finalDonationMemo,
+//                                                                "DONATION_AMOUNT": String(describing: dynamicDonate.finalDonationAmount.rawValue)]
+//                            
+//                             LWAnalytics.logEventWithParameters(itemName: ._20200223_DD, properties: properties)
+//                        })
+//                    }
+//                }
+//                dynamicDonate.cancelCallback = {
+//                     dynamicDonate.dismiss(animated: true, completion: {
+//                        self.sender.transaction = nil
+//                    })
+//                }
+//                self.present(dynamicDonate, animated: true, completion: nil) 
+//            }
         }
     }
 
