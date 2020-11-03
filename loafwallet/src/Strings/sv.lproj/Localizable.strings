@@ -911,6 +911,9 @@
 /* Start view message */
 "StartViewController.message" = "Det säkraste och tryggaste sättet att använda Litecoin.";
 
+/* Support the Litecoin Foundation */
+"SupportTheFoundation.title" = "Stöd Litecoin Foundation";
+
 /* Syncing view connection state header text */
 "SyncingHeader.connecting" = "Ansluter...";
 

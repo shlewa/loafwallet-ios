@@ -890,6 +890,9 @@
 /* Start view message */
 "StartViewController.message" = "The most secure and safest way to use Litecoin.";
 
+/* Support the Litecoin Foundation */
+"SupportTheFoundation.title" = "Support the Litecoin Foundation";
+
 /* Syncing view connection state header text */
 "SyncingHeader.connecting" = "Connecting...";
 
@@ -1238,7 +1241,7 @@
 /* Corruption Error alert title */
 "Alert.corruptionMessage" = "";
 
-/* Donate Memo */
+/* Donate to the articles */
 "Donate.toThe" = "";
 
 /* Donate */
