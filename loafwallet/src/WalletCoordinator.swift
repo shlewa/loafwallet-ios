@@ -130,7 +130,7 @@ class WalletCoordinator : Subscriber, Trackable {
         updateTimer = nil
         DispatchQueue.walletQueue.async {
             guard let txRefs = self.walletManager.wallet?.transactions else { return }
-            let transactions = self.makeTransactionViewModels(transactions: txRefs, walletManager: self.walletManager, kvStore: self.kvStore, rate: self.store.state.currentRate)
+            let transactions = self.makeTransactionViewModels(transactions: txRefs, walletManager: self.walletManager, kvStore: self.kvStore, rate: self.store.reduxState.currentRate)
             if transactions.count > 0 {
                 DispatchQueue.main.async {
                     self.store.perform(action: WalletChange.setTransactions(transactions))
@@ -191,9 +191,9 @@ class WalletCoordinator : Subscriber, Trackable {
     }
 
     private func checkForReceived(newBalance: UInt64) {
-        if let oldBalance = store.state.walletState.balance {
+        if let oldBalance = store.reduxState.walletState.balance {
             if newBalance > oldBalance {
-                if store.state.walletState.syncState == .success {
+                if store.reduxState.walletState.syncState == .success {
                     self.showReceived(amount: newBalance - oldBalance)
                 }
             }
@@ -201,10 +201,10 @@ class WalletCoordinator : Subscriber, Trackable {
     }
 
     private func showReceived(amount: UInt64) {
-        if let rate = store.state.currentRate {
-            let amount = Amount(amount: amount, rate: rate, maxDigits: store.state.maxDigits)
-            let primary = store.state.isLtcSwapped ? amount.localCurrency : amount.bits
-            let secondary = store.state.isLtcSwapped ? amount.bits : amount.localCurrency
+        if let rate = store.reduxState.currentRate {
+            let amount = Amount(amount: amount, rate: rate, maxDigits: store.reduxState.maxDigits)
+            let primary = store.reduxState.isLtcSwapped ? amount.localCurrency : amount.bits
+            let secondary = store.reduxState.isLtcSwapped ? amount.bits : amount.localCurrency
             let message = String(format: S.TransactionDetails.received, "\(primary) (\(secondary))")
             store.trigger(name: .lightWeightAlert(message))
             showLocalNotification(message: message)
@@ -225,7 +225,7 @@ class WalletCoordinator : Subscriber, Trackable {
 
     private func showLocalNotification(message: String) {
         guard UIApplication.shared.applicationState == .background || UIApplication.shared.applicationState == .inactive else { return }
-        guard store.state.isPushNotificationsEnabled else { return }
+        guard store.reduxState.isPushNotificationsEnabled else { return }
         UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber + 1
         let notification =
       UILocalNotification()

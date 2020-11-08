@@ -202,11 +202,11 @@ class StartImportViewController : UIViewController {
             guard fee + wallet.minOutputAmount <= balance else {
                 return self.showErrorMessage(S.Import.Error.highFees)
             }
-            guard let rate = self.store.state.currentRate else { return }
-            let balanceAmount = Amount(amount: balance, rate: rate, maxDigits: self.store.state.maxDigits)
-            let feeAmount = Amount(amount: fee, rate: rate, maxDigits: self.store.state.maxDigits)
-            let balanceText = self.store.state.isLtcSwapped ? balanceAmount.localCurrency : balanceAmount.bits
-            let feeText = self.store.state.isLtcSwapped ? feeAmount.localCurrency : feeAmount.bits
+            guard let rate = self.store.reduxState.currentRate else { return }
+            let balanceAmount = Amount(amount: balance, rate: rate, maxDigits: self.store.reduxState.maxDigits)
+            let feeAmount = Amount(amount: fee, rate: rate, maxDigits: self.store.reduxState.maxDigits)
+            let balanceText = self.store.reduxState.isLtcSwapped ? balanceAmount.localCurrency : balanceAmount.bits
+            let feeText = self.store.reduxState.isLtcSwapped ? feeAmount.localCurrency : feeAmount.bits
             let message = String(format: S.Import.confirm, balanceText, feeText)
             let alert = UIAlertController(title: S.Import.title, message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: S.Button.cancel, style: .cancel, handler: nil))

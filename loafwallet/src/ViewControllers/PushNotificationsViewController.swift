@@ -63,7 +63,7 @@ class PushNotificationsViewController : UIViewController {
         body.text = S.PushNotifications.body
         label.text = S.PushNotifications.label
 
-        toggle.isOn = store.state.isPushNotificationsEnabled
+        toggle.isOn = store.reduxState.isPushNotificationsEnabled
         toggle.sendActions(for: .valueChanged)
         
         toggle.valueChanged = { [weak self] in

@@ -23,7 +23,7 @@ class LoginViewController : UIViewController, Subscriber, Trackable {
     var walletManager: WalletManager? {
         didSet {
             guard walletManager != nil else { return }
-            pinView = PinView(style: .login, length: store.state.pinLength)
+            pinView = PinView(style: .login, length: store.reduxState.pinLength)
         }
     }
     var shouldSelfDismiss = false
@@ -34,7 +34,7 @@ class LoginViewController : UIViewController, Subscriber, Trackable {
         self.isPresentedForLock = isPresentedForLock
         self.disabledView = WalletDisabledView(store: store)
         if walletManager != nil {
-            self.pinView = PinView(style: .login, length: store.state.pinLength)
+            self.pinView = PinView(style: .login, length: store.reduxState.pinLength)
         }
         super.init(nibName: nil, bundle: nil)
     }
@@ -284,8 +284,8 @@ class LoginViewController : UIViewController, Subscriber, Trackable {
             guard let pinView = self?.pinView else { return }
             let attemptLength = pin.utf8.count
             pinView.fill(attemptLength)
-            self?.pinPadViewController.isAppendingDisabled = attemptLength < myself.store.state.pinLength ? false : true
-            if attemptLength == myself.store.state.pinLength {
+            self?.pinPadViewController.isAppendingDisabled = attemptLength < myself.store.reduxState.pinLength ? false : true
+            if attemptLength == myself.store.reduxState.pinLength {
                 self?.authenticate(pin: pin)
             }
         }
@@ -373,7 +373,7 @@ class LoginViewController : UIViewController, Subscriber, Trackable {
 
     private var shouldUseBiometrics: Bool {
         guard let walletManager = self.walletManager else { return false }
-        return LAContext.canUseBiometrics && !walletManager.pinLoginRequired && store.state.isBiometricsEnabled
+        return LAContext.canUseBiometrics && !walletManager.pinLoginRequired && store.reduxState.isBiometricsEnabled
     }
 
     @objc func biometricsTapped() {

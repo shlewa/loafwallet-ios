@@ -290,7 +290,7 @@ class ModalPresenter : Subscriber, Trackable {
     }
 
     private func makeSendView() -> UIViewController? {
-        guard !store.state.walletState.isRescanning else {
+        guard !store.reduxState.walletState.isRescanning else {
             let alert = UIAlertController(title: S.Alert.error, message: S.Send.isRescanning, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: S.Button.ok, style: .cancel, handler: nil))
             topViewController?.present(alert, animated: true, completion: nil)
@@ -302,7 +302,7 @@ class ModalPresenter : Subscriber, Trackable {
         let sendVC = SendViewController(store: store, sender: Sender(walletManager: walletManager, kvStore: kvStore, store: store),  walletManager: walletManager, initialRequest: currentRequest)
         currentRequest = nil
 
-        if store.state.isLoginRequired {
+        if store.reduxState.isLoginRequired {
             sendVC.isPresentedFromLock = true
         }
 
@@ -310,7 +310,7 @@ class ModalPresenter : Subscriber, Trackable {
         sendVC.presentScan = presentScan(parent: root)
         sendVC.presentVerifyPin = { [weak self, weak root] bodyText, callback in
             guard let myself = self else { return }
-            let vc = VerifyPinViewController(bodyText: bodyText, pinLength: myself.store.state.pinLength, callback: callback)
+            let vc = VerifyPinViewController(bodyText: bodyText, pinLength: myself.store.reduxState.pinLength, callback: callback)
             vc.transitioningDelegate = self?.verifyPinTransitionDelegate
             vc.modalPresentationStyle = .overFullScreen
             vc.modalPresentationCapturesStatusBarAppearance = true
@@ -440,14 +440,14 @@ class ModalPresenter : Subscriber, Trackable {
                 }),
                 Setting(title: LAContext.biometricType() == .face ? S.Settings.faceIdLimit : S.Settings.touchIdLimit, accessoryText: { [weak self] in
                     guard let myself = self else { return "" }
-                    guard let rate = myself.store.state.currentRate else { return "" }
-                    let amount = Amount(amount: walletManager.spendingLimit, rate: rate, maxDigits: myself.store.state.maxDigits)
+                    guard let rate = myself.store.reduxState.currentRate else { return "" }
+                    let amount = Amount(amount: walletManager.spendingLimit, rate: rate, maxDigits: myself.store.reduxState.maxDigits)
                     return amount.localCurrency
                 }, callback: {
                     self.pushBiometricsSpendingLimit(onNc: settingsNav)
                 }),
                 Setting(title: S.Settings.currency, accessoryText: {
-                    let code = self.store.state.defaultCurrencyCode
+                    let code = self.store.reduxState.defaultCurrencyCode
                     let components: [String : String] = [NSLocale.Key.currencyCode.rawValue : code]
                     let identifier = Locale.identifier(fromComponents: components)
                     return Locale(identifier: identifier).currencyCode ?? ""
@@ -556,7 +556,7 @@ class ModalPresenter : Subscriber, Trackable {
     private func pushBiometricsSpendingLimit(onNc: UINavigationController) {
         guard let walletManager = walletManager else { return }
 
-        let verify = VerifyPinViewController(bodyText: S.VerifyPin.continueBody, pinLength: store.state.pinLength, callback: { [weak self] pin, vc in
+        let verify = VerifyPinViewController(bodyText: S.VerifyPin.continueBody, pinLength: store.reduxState.pinLength, callback: { [weak self] pin, vc in
             guard let myself = self else { return false }
             if walletManager.authenticate(pin: pin) {
                 vc.dismiss(animated: true, completion: {
@@ -582,7 +582,7 @@ class ModalPresenter : Subscriber, Trackable {
         paperPhraseNavigationController.modalPresentationStyle = .overFullScreen
         let start = StartPaperPhraseViewController(store: store, callback: { [weak self] in
             guard let myself = self else { return }
-            let verify = VerifyPinViewController(bodyText: S.VerifyPin.continueBody, pinLength: myself.store.state.pinLength, callback: { pin, vc in
+            let verify = VerifyPinViewController(bodyText: S.VerifyPin.continueBody, pinLength: myself.store.reduxState.pinLength, callback: { pin, vc in
                 if walletManager.authenticate(pin: pin) {
                     var write: WritePaperPhraseViewController?
                     write = WritePaperPhraseViewController(store: myself.store, walletManager: walletManager, pin: pin, callback: { [weak self] in
@@ -718,7 +718,7 @@ class ModalPresenter : Subscriber, Trackable {
 
     private func handlePaymentRequest(request: PaymentRequest) {
         self.currentRequest = request
-        guard !store.state.isLoginRequired else { presentModal(.send); return }
+        guard !store.reduxState.isLoginRequired else { presentModal(.send); return }
 
         if topViewController is MainViewController {
             presentModal(.send)
@@ -732,7 +732,7 @@ class ModalPresenter : Subscriber, Trackable {
     }
 
     private func handleScanQrURL() {
-        guard !store.state.isLoginRequired else { presentLoginScan(); return }
+        guard !store.reduxState.isLoginRequired else { presentLoginScan(); return }
 
         if topViewController is MainViewController || topViewController is LoginViewController {
             presentLoginScan()
@@ -751,7 +751,7 @@ class ModalPresenter : Subscriber, Trackable {
         alert.addAction(UIAlertAction(title: S.Button.cancel, style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: S.URLHandling.copy, style: .default, handler: { [weak self] _ in
             guard let myself = self else { return }
-            let verify = VerifyPinViewController(bodyText: S.URLHandling.addressListVerifyPrompt, pinLength: myself.store.state.pinLength, callback: { [weak self] pin, view in
+            let verify = VerifyPinViewController(bodyText: S.URLHandling.addressListVerifyPrompt, pinLength: myself.store.reduxState.pinLength, callback: { [weak self] pin, view in
                 if walletManager.authenticate(pin: pin) {
                     self?.copyAllAddressesToClipboard()
                     view.dismiss(animated: true, completion: {
@@ -794,7 +794,7 @@ class ModalPresenter : Subscriber, Trackable {
 
     private func verifyPinForBitId(prompt: String, callback: @escaping (BitIdAuthResult) -> Void) {
         guard let walletManager = walletManager else { return }
-        let verify = VerifyPinViewController(bodyText: prompt, pinLength: store.state.pinLength, callback: { pin, view in
+        let verify = VerifyPinViewController(bodyText: prompt, pinLength: store.reduxState.pinLength, callback: { pin, view in
             if walletManager.authenticate(pin: pin) {
                 view.dismiss(animated: true, completion: {
                     callback(.success)

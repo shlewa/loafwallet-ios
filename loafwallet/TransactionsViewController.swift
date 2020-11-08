@@ -84,8 +84,8 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
         }
          
         store.subscribe(self, selector: { $0.walletState.transactions != $1.walletState.transactions },
-                       callback: { state in
-           self.allTransactions = state.walletState.transactions
+                       callback: { reduxState in
+           self.allTransactions = reduxState.walletState.transactions
            self.reload()
         })
 
@@ -98,28 +98,28 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
         })
          
         store.subscribe(self, selector: { $0.walletState.syncProgress != $1.walletState.syncProgress },
-                        callback: { state in
+                        callback: { reduxState in
             store.subscribe(self, name:.showStatusBar) { (didShowStatusBar) in
                self.reload() //May fix where the action view persists after confirming pin
             }
                             
-            if state.walletState.isRescanning {
+            if reduxState.walletState.isRescanning {
                  self.initSyncingHeaderView(completion: {
-                    self.syncingHeaderView?.isRescanning = state.walletState.isRescanning
-                    self.syncingHeaderView?.progress = CGFloat(state.walletState.syncProgress)
-                    self.syncingHeaderView?.headerMessage = state.walletState.syncState
+                    self.syncingHeaderView?.isRescanning = reduxState.walletState.isRescanning
+                    self.syncingHeaderView?.progress = CGFloat(reduxState.walletState.syncProgress)
+                    self.syncingHeaderView?.headerMessage = reduxState.walletState.syncState
                     self.syncingHeaderView?.noSendImageView.alpha = 1.0
-                    self.syncingHeaderView?.timestamp = state.walletState.lastBlockTimestamp
+                    self.syncingHeaderView?.timestamp = reduxState.walletState.lastBlockTimestamp
                     self.shouldBeSyncing = true
                  })
-            } else if state.walletState.syncProgress > 0.95 {
+            } else if reduxState.walletState.syncProgress > 0.95 {
                 self.shouldBeSyncing = false
                 self.syncingHeaderView = nil
             } else {
                 self.initSyncingHeaderView(completion: {
-                    self.syncingHeaderView?.progress = CGFloat(state.walletState.syncProgress)
-                    self.syncingHeaderView?.headerMessage = state.walletState.syncState
-                    self.syncingHeaderView?.timestamp = state.walletState.lastBlockTimestamp
+                    self.syncingHeaderView?.progress = CGFloat(reduxState.walletState.syncProgress)
+                    self.syncingHeaderView?.headerMessage = reduxState.walletState.syncState
+                    self.syncingHeaderView?.timestamp = reduxState.walletState.lastBlockTimestamp
                     self.syncingHeaderView?.noSendImageView.alpha = 0.0
                     self.shouldBeSyncing = true
                 })
@@ -128,13 +128,13 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
         })
         
         store.subscribe(self, selector: { $0.walletState.syncState != $1.walletState.syncState },
-                     callback: { state in
+                     callback: { reduxState in
             guard let _ = self.walletManager?.peerManager else {
               assertionFailure("PEER MANAGER Not initialized")
             return
             }
          
-            if state.walletState.syncState == .success {
+            if reduxState.walletState.syncState == .success {
             self.shouldBeSyncing = false
             self.syncingHeaderView = nil
             }
@@ -187,7 +187,7 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
         }
          
         let types = PromptType.defaultOrder
-        if let type = types.first(where: { $0.shouldPrompt(walletManager: walletManager, state: store.state) }) {
+        if let type = types.first(where: { $0.shouldPrompt(walletManager: walletManager, reduxState: store.reduxState) }) {
             self.saveEvent("prompt.\(type.name).displayed")
             currentPromptType = type
             if type == .biometrics {
@@ -342,7 +342,7 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
             if let rate = rate,
                 let store = self.store,
                 let isLtcSwapped = self.isLtcSwapped {
-                cell.setTransaction(transaction, isLtcSwapped: isLtcSwapped, rate: rate, maxDigits: store.state.maxDigits, isSyncing: store.state.walletState.syncState != .success)
+                cell.setTransaction(transaction, isLtcSwapped: isLtcSwapped, rate: rate, maxDigits: store.reduxState.maxDigits, isSyncing: store.reduxState.walletState.syncState != .success)
             }
             
             cell.staticBlockLabel.text = S.TransactionDetails.blockHeightLabel

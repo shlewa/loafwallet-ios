@@ -77,8 +77,8 @@ class ManageWalletViewController : UIViewController, ModalPresentable, Subscribe
         textFieldLabel.text = S.ManageWallet.textFieldLabel
         textField.delegate = self
 
-        self.textField.text = store.state.walletState.name
-        let creationDate = store.state.walletState.creationDate
+        self.textField.text = store.reduxState.walletState.name
+        let creationDate = store.reduxState.walletState.creationDate
         if creationDate.timeIntervalSince1970 > 0 {
             let df = DateFormatter()
             df.dateFormat = "MMMM d, yyyy"

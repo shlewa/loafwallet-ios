@@ -26,7 +26,7 @@ enum CameraGuideState {
 
 class CameraGuideView : UIView {
 
-    var state: CameraGuideState = .normal {
+    var cameraGuideState: CameraGuideState = .normal {
         didSet {
             setNeedsDisplay()
         }
@@ -64,7 +64,7 @@ class CameraGuideView : UIView {
             (lineWidth/2.0, rect.maxY - lineWidth/2.0),
             (guideSize, rect.maxY - lineWidth/2.0) ])
 
-        state.color.setStroke()
+        cameraGuideState.color.setStroke()
         context.setLineCap(.round)
         context.setLineJoin(.round)
         context.setLineWidth(lineWidth)

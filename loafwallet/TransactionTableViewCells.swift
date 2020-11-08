@@ -262,7 +262,11 @@ enum PromptType {
         }
     }
 
+<<<<<<< HEAD
     func shouldPrompt(walletManager: WalletManager, state: ReduxState) -> Bool {
+=======
+    func shouldPrompt(walletManager: WalletManager, reduxState: ReduxState) -> Bool {
+>>>>>>> Renamed enum from State (cherry picked to rename ReduxState)
          
         switch self {
         case .biometrics:
@@ -272,7 +276,7 @@ enum PromptType {
         case .upgradePin:
             return walletManager.pinLength != 6
         case .recommendRescan:
-            return state.recommendRescan
+            return reduxState.recommendRescan
         case .noPasscode:
             return !LAContext.isPasscodeEnabled
         case .shareData:

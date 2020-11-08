@@ -34,7 +34,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
         self.walletManager = walletManager
         self.initialAddress = initialAddress
         self.initialRequest = initialRequest
-        self.currency = ShadowButton(title: S.Symbols.currencyButtonTitle(maxDigits: store.state.maxDigits), type: .tertiary)
+        self.currency = ShadowButton(title: S.Symbols.currencyButtonTitle(maxDigits: store.reduxState.maxDigits), type: .tertiary)
         self.amountView = AmountViewController(store: store, isPinPadExpandedAtLaunch: false)
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
@@ -79,7 +79,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
         }
         
         // set as regular at didLoad
-        walletManager.wallet?.feePerKb = store.state.fees.regular
+        walletManager.wallet?.feePerKb = store.reduxState.fees.regular
 
         view.addSubview(addressCell)
         view.addSubview(supportLFCell.view)
@@ -158,7 +158,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
         amountView.didUpdateFee = strongify(self) { myself, feeType in
            
                 myself.feeType = feeType
-                let fees = myself.store.state.fees
+                let fees = myself.store.reduxState.fees
             
                 switch feeType {
                 case .regular: myself.walletManager.wallet?.feePerKb = fees.regular
@@ -174,7 +174,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
                 self?.descriptionCell.textView.resignFirstResponder()
                 self?.addressCell.textField.resignFirstResponder()
             }
-        } 
+        }
  
         supportLFCell.rootView.didCopyLFAddress = {
             //
@@ -183,7 +183,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
 
     private func balanceTextForAmount(amount: Satoshis?, rate: Rate?) -> (NSAttributedString?, NSAttributedString?) {
       
-        let balanceAmount = DisplayAmount(amount: Satoshis(rawValue: balance), state: store.state, selectedRate: rate, minimumFractionDigits: 2)
+        let balanceAmount = DisplayAmount(amount: Satoshis(rawValue: balance), reduxState: store.reduxState, selectedRate: rate, minimumFractionDigits: 2)
         let balanceText = balanceAmount.description
 
         let balanceOutput = String(format: S.Send.balance, balanceText)
@@ -192,7 +192,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
         
         if let amount = amount, amount > 0 {
             let fee = sender.feeForTx(amount: amount.rawValue)
-            let feeAmount = DisplayAmount(amount: Satoshis(rawValue: fee), state: store.state, selectedRate: rate, minimumFractionDigits: 2)
+            let feeAmount = DisplayAmount(amount: Satoshis(rawValue: fee), reduxState: store.reduxState, selectedRate: rate, minimumFractionDigits: 2)
                  
             let feeText = feeAmount.description.replacingZeroFeeWithOneCent()
             feeOutput = String(format: S.Send.fee, feeText)
@@ -250,8 +250,8 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
             }
             if let minOutput = walletManager.wallet?.minOutputAmount {
                 guard amount.rawValue >= minOutput else {
-                    let minOutputAmount = Amount(amount: minOutput, rate: Rate.empty, maxDigits: store.state.maxDigits)
-                    let message = String(format: S.PaymentProtocol.Errors.smallPayment, minOutputAmount.string(isLtcSwapped: store.state.isLtcSwapped))
+                    let minOutputAmount = Amount(amount: minOutput, rate: Rate.empty, maxDigits: store.reduxState.maxDigits)
+                    let message = String(format: S.PaymentProtocol.Errors.smallPayment, minOutputAmount.string(isLtcSwapped: store.reduxState.isLtcSwapped))
                     return showAlert(title: S.Alert.error, message: message, buttonLabel: S.Button.ok)
                 }
             }
@@ -267,7 +267,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
         }
 
         guard let amount = amount else { return }
-        let confirm = ConfirmationViewController(amount: amount, fee: Satoshis(sender.fee), feeType: feeType ?? .regular, state: store.state, selectedRate: amountView.selectedRate, minimumFractionDigits: amountView.minimumFractionDigits, address: addressCell.address ?? "", isUsingBiometrics: sender.canUseBiometrics)
+        let confirm = ConfirmationViewController(amount: amount, fee: Satoshis(sender.fee), feeType: feeType ?? .regular, reduxState: store.reduxState, selectedRate: amountView.selectedRate, minimumFractionDigits: amountView.minimumFractionDigits, address: addressCell.address ?? "", isUsingBiometrics: sender.canUseBiometrics)
         
         confirm.successCallback = {
             confirm.dismiss(animated: true, completion: {
@@ -316,7 +316,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
     }
 
     private func send() {
-        guard let rate = store.state.currentRate else { return }
+        guard let rate = store.reduxState.currentRate else { return }
         guard let feePerKb = walletManager.wallet?.feePerKb else { return }
          
         sender.send(biometricsMessage: S.VerifyPin.touchIdMessage,
@@ -395,11 +395,11 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
                 self?.confirmProtocolRequest(protoReq: protoReq)
             })
         } else if requestAmount < wallet.minOutputAmount {
-            let amount = Amount(amount: wallet.minOutputAmount, rate: Rate.empty, maxDigits: store.state.maxDigits)
+            let amount = Amount(amount: wallet.minOutputAmount, rate: Rate.empty, maxDigits: store.reduxState.maxDigits)
             let message = String(format: S.PaymentProtocol.Errors.smallPayment, amount.bits)
             return showAlert(title: S.PaymentProtocol.Errors.smallOutputErrorTitle, message: message, buttonLabel: S.Button.ok)
         } else if isOutputTooSmall {
-            let amount = Amount(amount: wallet.minOutputAmount, rate: Rate.empty, maxDigits: store.state.maxDigits)
+            let amount = Amount(amount: wallet.minOutputAmount, rate: Rate.empty, maxDigits: store.reduxState.maxDigits)
             let message = String(format: S.PaymentProtocol.Errors.smallTransaction, amount.bits)
             return showAlert(title: S.PaymentProtocol.Errors.smallOutputErrorTitle, message: message, buttonLabel: S.Button.ok)
         }

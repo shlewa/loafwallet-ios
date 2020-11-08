@@ -147,7 +147,7 @@ class BiometricsSettingsViewController : UIViewController, Subscriber {
   
     private var spendingButtonText: String {
         guard let rate = rate else { return "" }
-        let amount = Amount(amount: walletManager.spendingLimit, rate: rate, maxDigits: store.state.maxDigits)
+        let amount = Amount(amount: walletManager.spendingLimit, rate: rate, maxDigits: store.reduxState.maxDigits)
         let string = "\(String(format: S.TouchIdSettings.limitValue, amount.bits, amount.localCurrency))"
         return string
     }

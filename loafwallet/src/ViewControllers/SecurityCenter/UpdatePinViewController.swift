@@ -26,7 +26,7 @@ class UpdatePinViewController: UIViewController, Subscriber {
         self.store = store
         self.walletManager = walletManager
         self.phrase = phrase
-        self.pinView = PinView(style: .create, length: store.state.pinLength)
+        self.pinView = PinView(style: .create, length: store.reduxState.pinLength)
         self.showsBackButton = showsBackButton
         self.type = type
         super.init(nibName: nil, bundle: nil)
@@ -179,7 +179,7 @@ class UpdatePinViewController: UIViewController, Subscriber {
 
     private func didUpdateForCurrent(pin: String) {
         pinView.fill(pin.utf8.count)
-        if pin.utf8.count == store.state.pinLength {
+        if pin.utf8.count == store.reduxState.pinLength {
             if walletManager.authenticate(pin: pin) {
                 pushNewStep(.new)
                 currentPin = pin

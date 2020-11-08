@@ -146,7 +146,7 @@ class Store {
             .forEach { $0.callback(name) }
     }
 
-    //Subscription callback is immediately called with current State value on subscription
+    //Subscription callback is immediately called with current ReduxState value on subscription
     //and then any time the selected value changes
     func subscribe(_ subscriber: Subscriber, selector: @escaping Selector, callback: @escaping (ReduxState) -> Void) {
         lazySubscribe(subscriber, selector: selector, callback: callback)

@@ -97,12 +97,12 @@ class MainViewController : UIViewController, Subscriber, LoginViewControllerDele
         if let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as? TabBarViewController {
            
             vc.store = self.store
-            vc.isLtcSwapped = store.state.isLtcSwapped
+            vc.isLtcSwapped = store.reduxState.isLtcSwapped
             vc.walletManager = self.walletManager
             
-            if let rate = store.state.currentRate {
+            if let rate = store.reduxState.currentRate {
                 vc.exchangeRate = rate
-                let placeholderAmount = Amount(amount: 0, rate: rate, maxDigits: store.state.maxDigits)
+                let placeholderAmount = Amount(amount: 0, rate: rate, maxDigits: store.reduxState.maxDigits)
                 vc.secondaryBalanceLabel = UpdatingLabel(formatter: placeholderAmount.localFormat)
                 vc.primaryBalanceLabel = UpdatingLabel(formatter: placeholderAmount.ltcFormat)
             } else {
@@ -165,7 +165,7 @@ class MainViewController : UIViewController, Subscriber, LoginViewControllerDele
         }
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillResignActive, object: nil, queue: nil) { note in
-            if !self.isLoginRequired && !self.store.state.isPromptingBiometrics {
+            if !self.isLoginRequired && !self.store.reduxState.isPromptingBiometrics {
                 self.blurView.alpha = 1.0
                 self.view.addSubview(self.blurView)
                 self.blurView.constrain(toSuperviewEdges: nil)

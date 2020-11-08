@@ -217,15 +217,15 @@ class BRWalletPlugin: BRHTTPRouterPlugin, BRWebSocketClient, Trackable {
         if let wallet = walletManager.wallet {
             d["receive_address"] = wallet.receiveAddress
         }
-        d["btc_denomination_digits"] = store.state.maxDigits
-        d["local_currency_code"] = store.state.defaultCurrencyCode
+        d["btc_denomination_digits"] = store.reduxState.maxDigits
+        d["local_currency_code"] = store.reduxState.defaultCurrencyCode
         return d
     }
 
     func currencyFormat(_ amount: Int64) -> [String: Any] {
         var d = [String: Any]()
-        if let rate = store.state.currentRate {
-            let amount = Amount(amount: UInt64(amount), rate: rate, maxDigits: store.state.maxDigits)
+        if let rate = store.reduxState.currentRate {
+            let amount = Amount(amount: UInt64(amount), rate: rate, maxDigits: store.reduxState.maxDigits)
             d["local_currency_amount"] = amount.localCurrency
             d["currency_amount"] = amount.bits
         }

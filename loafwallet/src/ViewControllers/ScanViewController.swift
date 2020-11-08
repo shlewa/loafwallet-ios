@@ -182,16 +182,16 @@ extension ScanViewController : AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let data = metadataObjects as? [AVMetadataMachineReadableCodeObject] {
             if data.count == 0 {
-                guide.state = .normal
+                guide.cameraGuideState = .normal
             } else {
                 data.forEach {
                     guard let uri = $0.stringValue else {
                         NSLog("ERROR: URI String not found")
                         return
                     }
-                    if completion != nil && guide.state != .positive {
+                    if completion != nil && guide.cameraGuideState != .positive {
                         handleURI(uri)
-                    } else if scanKeyCompletion != nil && guide.state != .positive {
+                    } else if scanKeyCompletion != nil && guide.cameraGuideState != .positive {
                         handleKey(uri)
                     }
                 }
@@ -206,7 +206,7 @@ extension ScanViewController : AVCaptureMetadataOutputObjectsDelegate {
             self.currentUri = uri
             if let paymentRequest = PaymentRequest(string: uri) {
                 saveEvent("scan.litecoinUri")
-                guide.state = .positive
+                guide.cameraGuideState = .positive
                 //Add a small delay so the green guide will be seen
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                     self.dismiss(animated: true, completion: {
@@ -214,7 +214,7 @@ extension ScanViewController : AVCaptureMetadataOutputObjectsDelegate {
                     })
                 })
             } else {
-                guide.state = .negative
+                guide.cameraGuideState = .negative
             }
         }
     }
@@ -222,14 +222,14 @@ extension ScanViewController : AVCaptureMetadataOutputObjectsDelegate {
     func handleKey(_ keyString: String) {
         if isValidURI(keyString) {
             saveEvent("scan.privateKey")
-            guide.state = .positive
+            guide.cameraGuideState = .positive
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                 self.dismiss(animated: true, completion: {
                     self.scanKeyCompletion?(keyString)
                 })
             })
         } else {
-            guide.state = .negative
+            guide.cameraGuideState = .negative
         }
     }
 }

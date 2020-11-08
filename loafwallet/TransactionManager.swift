@@ -22,8 +22,8 @@ class TransactionManager: NSObject, Subscriber {
         self.store = store
         
         store.subscribe(self, selector: { $0.walletState.transactions != $1.walletState.transactions },
-                        callback: { state in
-                            self.transactions = state.walletState.transactions
+                        callback: { reduxState in
+                            self.transactions = reduxState.walletState.transactions
         })
         
         store.subscribe(self,selector: { $0.currentRate != $1.currentRate},

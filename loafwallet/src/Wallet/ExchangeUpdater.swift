@@ -16,15 +16,15 @@ class ExchangeUpdater : Subscriber {
         self.walletManager = walletManager
         store.subscribe(self,
                         selector: { $0.defaultCurrencyCode != $1.defaultCurrencyCode },
-                        callback: { state in
-                            guard let currentRate = state.rates.first( where: { $0.code == state.defaultCurrencyCode }) else { return }
+                        callback: { reduxState in
+                            guard let currentRate = reduxState.rates.first( where: { $0.code == reduxState.defaultCurrencyCode }) else { return }
                             self.store.perform(action: ExchangeRates.setRate(currentRate))
         })
     }
 
     func refresh(completion: @escaping () -> Void) {
         walletManager.apiClient?.exchangeRates { rates, error in
-            guard let currentRate = rates.first( where: { $0.code == self.store.state.defaultCurrencyCode }) else { completion(); return }
+            guard let currentRate = rates.first( where: { $0.code == self.store.reduxState.defaultCurrencyCode }) else { completion(); return }
             self.store.perform(action: ExchangeRates.setRates(currentRate: currentRate, rates: rates))
             completion()
         }

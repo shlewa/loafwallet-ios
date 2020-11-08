@@ -47,7 +47,7 @@ class StartFlowPresenter : Subscriber {
         store.subscribe(self, name: .lock,
                         callback: { _ in self.presentLoginFlow(isPresentedForLock: true) })
     }
-
+ 
     private func handleStartFlowChange(state: ReduxState) {
         if state.isStartFlowVisible {
             guardProtected(queue: DispatchQueue.main) { [weak self] in

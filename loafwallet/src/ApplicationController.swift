@@ -149,13 +149,13 @@ class ApplicationController : Subscriber, Trackable {
         }
 
         func didEnterBackground() {
-            if store.state.walletState.syncState == .success {
+            if store.reduxState.walletState.syncState == .success {
                 DispatchQueue.walletQueue.async {
                     self.walletManager?.peerManager?.disconnect()
                 }
             }
             //Save the backgrounding time if the user is logged in
-            if !store.state.isLoginRequired {
+            if !store.reduxState.isLoginRequired {
                 UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: timeSinceLastExitKey)
             }
             walletManager?.apiClient?.kv?.syncAllKeys { print("KV finished syncing. err: \(String(describing: $0))") }
@@ -324,9 +324,9 @@ class ApplicationController : Subscriber, Trackable {
                 group.enter()
                 LWAnalytics.logEventWithParameters(itemName:._20200111_DEDG)
 
-                store.lazySubscribe(self, selector: { $0.walletState.syncState != $1.walletState.syncState }, callback: { state in
+                store.lazySubscribe(self, selector: { $0.walletState.syncState != $1.walletState.syncState }, callback: { reduxState in
                     if self.fetchCompletionHandler != nil {
-                        if state.walletState.syncState == .success {
+                        if reduxState.walletState.syncState == .success {
                             DispatchQueue.walletConcurrentQueue.async {
                                 peerManager.disconnect()
                                 self.saveEvent("appController.peerDisconnect")

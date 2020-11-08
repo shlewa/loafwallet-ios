@@ -13,7 +13,7 @@ class DefaultCurrencyViewController : UITableViewController, Subscriber {
     init(walletManager: WalletManager, store: Store) {
         self.walletManager = walletManager
         self.store = store
-        self.rates = store.state.rates.filter { $0.code != C.btcCurrencyCode }
+        self.rates = store.reduxState.rates.filter { $0.code != C.btcCurrencyCode }
         super.init(style: .plain)
     }
 
@@ -74,8 +74,8 @@ class DefaultCurrencyViewController : UITableViewController, Subscriber {
 
     private func setExchangeRateLabel() {
         if let currentRate = rates.filter({ $0.code == defaultCurrencyCode }).first {
-            let amount = Amount(amount: C.satoshis, rate: currentRate, maxDigits: store.state.maxDigits)
-            let bitsAmount = Amount(amount: C.satoshis, rate: currentRate, maxDigits: store.state.maxDigits)
+            let amount = Amount(amount: C.satoshis, rate: currentRate, maxDigits: store.reduxState.maxDigits)
+            let bitsAmount = Amount(amount: C.satoshis, rate: currentRate, maxDigits: store.reduxState.maxDigits)
             rateLabel.textColor = .darkText
             rateLabel.text = "\(bitsAmount.bits) = \(amount.string(forLocal: currentRate.locale))"
             
@@ -133,7 +133,7 @@ class DefaultCurrencyViewController : UITableViewController, Subscriber {
             bitcoinSwitch.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: -C.padding[2]),
             bitcoinSwitch.widthAnchor.constraint(equalTo: header.widthAnchor, constant: -C.padding[4]) ])
 
-        let settingSegment = store.state.maxDigits
+        let settingSegment = store.reduxState.maxDigits
         switch settingSegment {
             case 2:     bitcoinSwitch.selectedSegmentIndex = 0
             case 5:     bitcoinSwitch.selectedSegmentIndex = 1

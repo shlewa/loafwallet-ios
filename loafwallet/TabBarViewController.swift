@@ -223,8 +223,8 @@ class TabBarViewController: UIViewController, Subscriber, Trackable, UITabBarDel
         
         store.subscribe(self,
                         selector: {$0.walletState.balance != $1.walletState.balance },
-                        callback: { state in
-                            if let balance = state.walletState.balance {
+                        callback: { reduxState in
+                            if let balance = reduxState.walletState.balance {
                                 self.balance = balance
                                 self.setBalances()
                             } })
@@ -241,10 +241,10 @@ class TabBarViewController: UIViewController, Subscriber, Trackable, UITabBarDel
                 return
         }
          
-        let amount = Amount(amount: balance, rate: rate, maxDigits: store.state.maxDigits)
+        let amount = Amount(amount: balance, rate: rate, maxDigits: store.reduxState.maxDigits)
 
         if !hasInitialized {
-            let amount = Amount(amount: balance, rate: exchangeRate!, maxDigits: store.state.maxDigits)
+            let amount = Amount(amount: balance, rate: exchangeRate!, maxDigits: store.reduxState.maxDigits)
             NSLayoutConstraint.deactivate(isLTCSwapped ? self.regularConstraints : self.swappedConstraints)
             NSLayoutConstraint.activate(isLTCSwapped ? self.swappedConstraints : self.regularConstraints)
             primaryLabel.setValue(amount.amountForLtcFormat)
@@ -331,7 +331,7 @@ class TabBarViewController: UIViewController, Subscriber, Trackable, UITabBarDel
             
             transactionVC.store = self.store
             transactionVC.walletManager = self.walletManager
-            transactionVC.isLtcSwapped = self.store?.state.isLtcSwapped
+            transactionVC.isLtcSwapped = self.store?.reduxState.isLtcSwapped
         
         case "loafwallet.BuyTableViewController":
                 guard let buyVC = contentController as? BuyTableViewController else  {

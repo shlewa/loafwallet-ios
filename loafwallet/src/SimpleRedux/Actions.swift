@@ -239,7 +239,6 @@ enum UpdateFees {
     }
 }
 
-
 //MARK: - ReduxState Creation Helpers
 extension ReduxState {
     func clone(isStartFlowVisible: Bool) -> ReduxState {
