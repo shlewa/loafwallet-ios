@@ -14,6 +14,10 @@ struct SupportLitecoinFoundationView: View {
     
     @ObservedObject
     var viewModel: SupportLitecoinFoundationViewModel
+    
+    @State
+    var didShowWebView: Bool = false
+
 
     //MARK: - Public
     var didCopyLFAddress: (() -> Void)?

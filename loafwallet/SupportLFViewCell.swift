@@ -17,7 +17,7 @@ struct SupportLFView: View {
     
     var didTapToSupport:(() -> ())?
     
-    init(viewModel: SupportLFViewModel) {
+    init(viewModel: SupportLFViewModel, didShowWebView:Bool) {
         self.viewModel = viewModel
     }
     var body: some View {
@@ -27,12 +27,11 @@ struct SupportLFView: View {
             
             Spacer()
             Button(action: {
-                ///
+                ///didShowWebView
             }, label: {
                 Text(S.SupportLitecoinFoundation.title)
                     .padding()
-                    .background(Color.)
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(UIColor(.litecoinSilver)))
                     .cornerRadius(4)
             })
             Divider()
