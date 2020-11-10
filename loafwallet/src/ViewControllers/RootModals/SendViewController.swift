@@ -53,7 +53,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
     private let amountView: AmountViewController
     private let addressCell = AddressCell()
     private let descriptionCell = DescriptionSendCell(placeholder: S.Send.descriptionLabel)
-    private let supportLFCell = UIHostingController(rootView: SupportLFView(viewModel: SupportLFViewModel()))
+    private let supportLFCell = UIHostingController(rootView: SupportLitecoinFoundationView(viewModel: SupportLitecoinFoundationViewModel()))
     private var sendButton = ShadowButton(title: S.Send.sendLabel, type: .flatLitecoinBlue)  
     private let currency: ShadowButton
     private let currencyBorder = UIView(color: .secondaryShadow)
@@ -176,43 +176,8 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
             }
         } 
  
-        supportLFCell.rootView.didTapToSupport = {
- 
-//            if let dynamicDonate = UIStoryboard.init(name: "DynamicDonation", bundle: nil).instantiateViewController(withIdentifier: "DynamicDonation") as? DynamicDonationViewController {
-//                if #available(iOS 13.0, *) {
-//                    dynamicDonate.isModalInPresentation = true
-//                }
-//                
-//                dynamicDonate.store = self.store 
-//                dynamicDonate.senderClass = self.sender
-//                dynamicDonate.balance = self.balance
-//                dynamicDonate.providesPresentationContextTransitionStyle = true
-//                dynamicDonate.definesPresentationContext = true
-//                dynamicDonate.modalPresentationStyle = .fullScreen
-//                dynamicDonate.modalTransitionStyle = .crossDissolve
-//                
-//                dynamicDonate.successCallback = {
-//                    if self.sender.createTransaction(amount: dynamicDonate.finalDonationAmount.rawValue, to: dynamicDonate.finalDonationAddress) {
-//                        self.descriptionCell.textView.text = dynamicDonate.finalDonationMemo
-//                            dynamicDonate.dismiss(animated: true, completion: {
-//                             self.send()
-//                                
-//                             let properties: [String: String] = ["ADDRESS_SCHEME":"v2",
-//                                                                 "PLATFORM":"iOS",
-//                                                                "DONATION_ACCOUNT": dynamicDonate.finalDonationMemo,
-//                                                                "DONATION_AMOUNT": String(describing: dynamicDonate.finalDonationAmount.rawValue)]
-//                            
-//                             LWAnalytics.logEventWithParameters(itemName: ._20200223_DD, properties: properties)
-//                        })
-//                    }
-//                }
-//                dynamicDonate.cancelCallback = {
-//                     dynamicDonate.dismiss(animated: true, completion: {
-//                        self.sender.transaction = nil
-//                    })
-//                }
-//                self.present(dynamicDonate, animated: true, completion: nil) 
-//            }
+        supportLFCell.rootView.didCopyLFAddress = {
+            //
         }
     }
 
