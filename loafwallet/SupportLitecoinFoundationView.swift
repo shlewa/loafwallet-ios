@@ -9,15 +9,18 @@
 import SwiftUI
 import UIKit
 import Foundation
+import SafariServices
+import WebKit
+
 
 struct SupportLitecoinFoundationView: View {
     
     @ObservedObject
     var viewModel: SupportLitecoinFoundationViewModel
-    
+     
     @State
-    var didShowWebView: Bool = false
-
+    private var showSupportLFPage: Bool = false
+     
 
     //MARK: - Public
     var didCopyLFAddress: (() -> Void)?
@@ -25,23 +28,41 @@ struct SupportLitecoinFoundationView: View {
     init(viewModel: SupportLitecoinFoundationViewModel) {
         self.viewModel = viewModel
     }
+    
     var body: some View {
         VStack {
             Spacer()
- 
             Button(action: {
-///
-                      }) {
+                self.showSupportLFPage = true
+            }) {
+                
                 Text(S.SupportLitecoinFoundation.title)
+                    .padding(.all,10)
+                    .font(Font(UIFont.customMedium(size: 16.0)))
+                    .foregroundColor(Color(UIColor.grayTextTint))
+                    .background(Color(UIColor.secondaryButton))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(Color(UIColor.secondaryBorder))
+                    )
+            }
+            .sheet(
+                isPresented: self.$showSupportLFPage,
+                onDismiss: {
+                    // Copy address to clipboard
+                    // Dismiss Popover
+                }
+            ) {
+                VStack {
+                    GenericSafariView(url: FoundationSupport.url,
+                                      viewModel: GenericSafariViewModel())
+                }
             }
             Spacer()
-            Divider()
+            Rectangle()
+                .fill(Color(UIColor.secondaryBorder))
+                .frame(height: 1.0)
         }
     }
 }
-
-struct SupportLitecoinFoundationView_Previews: PreviewProvider {
-    static var previews: some View {
-        SupportLitecoinFoundationView(viewModel: SupportLitecoinFoundationViewModel())
-    }
-}
+  

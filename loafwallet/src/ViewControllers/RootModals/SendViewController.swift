@@ -53,7 +53,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
     private let amountView: AmountViewController
     private let addressCell = AddressCell()
     private let descriptionCell = DescriptionSendCell(placeholder: S.Send.descriptionLabel)
-    private let supportLFCell = UIHostingController(rootView: SupportLitecoinFoundationView(viewModel: SupportLitecoinFoundationViewModel()))
+    private let supportLitecoinFoundationCell = UIHostingController(rootView: SupportLitecoinFoundationView(viewModel: SupportLitecoinFoundationViewModel()))
     private var sendButton = ShadowButton(title: S.Send.sendLabel, type: .flatLitecoinBlue)  
     private let currency: ShadowButton
     private let currencyBorder = UIView(color: .secondaryShadow)
@@ -82,7 +82,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
         walletManager.wallet?.feePerKb = store.reduxState.fees.regular
 
         view.addSubview(addressCell)
-        view.addSubview(supportLFCell.view)
+        view.addSubview(supportLitecoinFoundationCell.view)
         view.addSubview(descriptionCell)
         view.addSubview(sendButton)
         
@@ -94,14 +94,14 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
                 amountView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor) ])
         })
         
-        supportLFCell.view.constrain([
-            supportLFCell.view.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
-                                        supportLFCell.view.topAnchor.constraint(equalTo: amountView.view.bottomAnchor),
-                                        supportLFCell.view.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
-                                        supportLFCell.view.heightAnchor.constraint(equalToConstant: 72.0)])
+        supportLitecoinFoundationCell.view.constrain([
+                                                        supportLitecoinFoundationCell.view.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
+                                                        supportLitecoinFoundationCell.view.topAnchor.constraint(equalTo: amountView.view.bottomAnchor),
+                                                        supportLitecoinFoundationCell.view.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
+                                                        supportLitecoinFoundationCell.view.heightAnchor.constraint(equalToConstant: 72.0)])
         descriptionCell.constrain([
             descriptionCell.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
-                                    descriptionCell.topAnchor.constraint(equalTo: supportLFCell.view.bottomAnchor),
+                                    descriptionCell.topAnchor.constraint(equalTo: supportLitecoinFoundationCell.view.bottomAnchor),
             descriptionCell.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
             descriptionCell.heightAnchor.constraint(equalTo: descriptionCell.textView.heightAnchor, constant: C.padding[4]) ])
         descriptionCell.accessoryView.constrain([
@@ -176,7 +176,7 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
             }
         }
  
-        supportLFCell.rootView.didCopyLFAddress = {
+        supportLitecoinFoundationCell.rootView.didCopyLFAddress = {
             //
         }
     }
