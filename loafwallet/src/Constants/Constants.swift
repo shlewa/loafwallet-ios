@@ -38,9 +38,12 @@ enum CustomEvent: String {
 }
 
 struct FoundationSupport {
+
+    static let url = URL(string: "https://lite-wallet.org/support_address.html")!
     
-      static let url = URL(string: "https://lite-wallet.org")!
-       // MVZj7gBRwcVpa9AAWdJm8A3HqTst112eJe
+    /// Litecoin Foundation main donation address: MVZj7gBRwcVpa9AAWdJm8A3HqTst112eJe
+    /// As of Nov 14th, 2020
+    static let supportLTCAddress = "MVZj7gBRwcVpa9AAWdJm8A3HqTst112eJe"
 }
 
 struct Padding {
