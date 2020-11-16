@@ -8,10 +8,21 @@
 
 import Foundation
 import SwiftUI
+import Combine
+
 
 class SupportLitecoinFoundationViewModel: ObservableObject {
     
-    init() {
-        
+    //MARK: - Combine Variables
+    @Published
+    var supportLTCAddress: String = ""
+    
+    //MARK: - Public Variables
+    var didGetLTCAddress: ((String) -> Void)?
+    
+    init() {}
+    
+    func updateAddressString(address: String) {
+        didGetLTCAddress?(address)
     }
 }

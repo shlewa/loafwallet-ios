@@ -7,23 +7,27 @@
 //
 
 import SwiftUI
-import UIKit
 import Foundation
-import SafariServices
-import WebKit
+import WebKit 
 
 
+
+/// This cell is under the amount view and above the Memo view in the Send VC
 struct SupportLitecoinFoundationView: View {
-    
+     
+    //MARK: - Combine Variables
     @ObservedObject
     var viewModel: SupportLitecoinFoundationViewModel
-     
+    
+    @State
+    var supportLTCAddress = ""
+    
     @State
     private var showSupportLFPage: Bool = false
-     
-
+       
     //MARK: - Public
-    var didCopyLFAddress: (() -> Void)?
+    var supportSafariView = SupportSafariView(url: FoundationSupport.url,
+                                                      viewModel: SupportSafariViewModel())
     
     init(viewModel: SupportLitecoinFoundationViewModel) {
         self.viewModel = viewModel
@@ -46,22 +50,43 @@ struct SupportLitecoinFoundationView: View {
                             .stroke(Color(UIColor.secondaryBorder))
                     )
             }
-            .sheet(
-                isPresented: self.$showSupportLFPage,
+            .sheet(isPresented: self.$showSupportLFPage,
                 onDismiss: {
-                    // Copy address to clipboard
-                    // Dismiss Popover
+                    viewModel.updateAddressString(address: supportSafariView
+                                                    .viewModel
+                                                    .supportLTCAddress)
                 }
             ) {
                 VStack {
-                    GenericSafariView(url: FoundationSupport.url,
-                                      viewModel: GenericSafariViewModel())
+                    Spacer()
+                    supportSafariView
+                        .frame(height: 500,
+                               alignment: .center
+                        )
+                        .padding(.bottom, 50)
+                    Button(action: {
+                        self.showSupportLFPage = false
+                    }) {
+                        Text(S.URLHandling.copy)
+                            .padding([.leading,.trailing],20)
+                            .padding([.top,.bottom],10)
+                            .font(Font(UIFont.customMedium(size: 16.0)))
+                            .foregroundColor(Color(UIColor.grayTextTint))
+                            .background(Color(UIColor.secondaryButton))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .stroke(Color(UIColor.secondaryBorder))
+                            ) 
+                    }
+                    .padding(.bottom, 50)
+                    .padding([.leading,.trailing], 50)
                 }
             }
             Spacer()
             Rectangle()
                 .fill(Color(UIColor.secondaryBorder))
                 .frame(height: 1.0)
+
         }
     }
 }

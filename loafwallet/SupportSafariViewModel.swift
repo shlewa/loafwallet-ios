@@ -1,5 +1,5 @@
 //
-//  GenericSafariViewModel.swift
+//  SupportSafariViewModel.swift
 //  loafwallet
 //
 //  Created by Kerry Washington on 11/13/20.
@@ -8,12 +8,10 @@
 
 import Foundation
 
-class GenericSafariViewModel: ObservableObject {
+class SupportSafariViewModel: ObservableObject {
     
     @Published
-     var didLoadPage: Bool = false
-    
-    init() {
+    var supportLTCAddress = ""
         
-    }
+    init() { }
 }
