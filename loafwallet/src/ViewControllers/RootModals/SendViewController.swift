@@ -14,7 +14,7 @@ import SwiftUI
 
 typealias PresentScan = ((@escaping ScanCompletion) -> Void)
 
-private let verticalButtonPadding: CGFloat = 32.0
+private let verticalButtonPadding: CGFloat = 15.0
 private let buttonSize = CGSize(width: 52.0, height: 32.0)
  
 class SendViewController : UIViewController, Subscriber, ModalPresentable, Trackable {
@@ -98,12 +98,13 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
                                                         supportLitecoinFoundationCell.view.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
                                                         supportLitecoinFoundationCell.view.topAnchor.constraint(equalTo: amountView.view.bottomAnchor),
                                                         supportLitecoinFoundationCell.view.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
-                                                        supportLitecoinFoundationCell.view.heightAnchor.constraint(equalToConstant: 72.0)])
+                                                        supportLitecoinFoundationCell.view.heightAnchor.constraint(equalToConstant: SendCell.defaultHeight)])
         descriptionCell.constrain([
             descriptionCell.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
                                     descriptionCell.topAnchor.constraint(equalTo: supportLitecoinFoundationCell.view.bottomAnchor),
             descriptionCell.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
-            descriptionCell.heightAnchor.constraint(equalTo: descriptionCell.textView.heightAnchor, constant: C.padding[4]) ])
+            descriptionCell.heightAnchor.constraint(equalTo: descriptionCell.textView.heightAnchor, constant: C.padding[3]) ])
+
         descriptionCell.accessoryView.constrain([
                 descriptionCell.accessoryView.constraint(.width, constant: 0.0) ])
         sendButton.constrain([
@@ -175,9 +176,17 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
                 self?.addressCell.textField.resignFirstResponder()
             }
         }
- 
-        supportLitecoinFoundationCell.rootView.didCopyLFAddress = {
-            //
+        
+        supportLitecoinFoundationCell.rootView.viewModel.didGetLTCAddress = { ltcAddress in
+            
+            ///Paste in Support Litecoin Foundation address to textField
+            self.addressCell.textField.text = ltcAddress
+            self.addressCell.textField.becomeFirstResponder()
+            self.addressCell.textField.isHidden = false
+            
+            /// Paste in Memo
+            self.descriptionCell.clearPlaceholder()
+            self.descriptionCell.textView.text = "Litecoin Foundation"
         }
     }
 
