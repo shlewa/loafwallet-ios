@@ -293,7 +293,7 @@
 		CE20C90E1DBE52B000C8397A /* UIView+BRWAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20C90D1DBE52B000C8397A /* UIView+BRWAdditions.swift */; };
 		CE20C9111DBE5B6F00C8397A /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20C9101DBE5B6F00C8397A /* Circle.swift */; };
 		CE20C9171DBE6F2A00C8397A /* UIButton+BRWAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20C9161DBE6F2A00C8397A /* UIButton+BRWAdditions.swift */; };
-		CE20C9191DBE7B8200C8397A /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20C9181DBE7B8200C8397A /* State.swift */; };
+		CE20C9191DBE7B8200C8397A /* ReduxState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20C9181DBE7B8200C8397A /* ReduxState.swift */; };
 		CE25BF8D1DF3B8A500BC67B6 /* InViewAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25BF8C1DF3B8A500BC67B6 /* InViewAlert.swift */; };
 		CE25BF911DF9ADE700BC67B6 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25BF901DF9ADE700BC67B6 /* UIImage+Utils.swift */; };
 		CE25BF931DFDA7A600BC67B6 /* MessageUIPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25BF921DFDA7A500BC67B6 /* MessageUIPresenter.swift */; };
@@ -1449,7 +1449,7 @@
 		CE20C90D1DBE52B000C8397A /* UIView+BRWAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+BRWAdditions.swift"; path = "src/Extensions/UIView+BRWAdditions.swift"; sourceTree = "<group>"; };
 		CE20C9101DBE5B6F00C8397A /* Circle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Circle.swift; path = src/Views/Circle.swift; sourceTree = "<group>"; };
 		CE20C9161DBE6F2A00C8397A /* UIButton+BRWAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIButton+BRWAdditions.swift"; path = "src/Extensions/UIButton+BRWAdditions.swift"; sourceTree = "<group>"; };
-		CE20C9181DBE7B8200C8397A /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = State.swift; path = src/SimpleRedux/State.swift; sourceTree = "<group>"; };
+		CE20C9181DBE7B8200C8397A /* ReduxState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReduxState.swift; path = src/SimpleRedux/ReduxState.swift; sourceTree = "<group>"; };
 		CE25BF8C1DF3B8A500BC67B6 /* InViewAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InViewAlert.swift; path = src/Views/InViewAlert.swift; sourceTree = "<group>"; };
 		CE25BF901DF9ADE700BC67B6 /* UIImage+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Utils.swift"; path = "src/Extensions/UIImage+Utils.swift"; sourceTree = "<group>"; };
 		CE25BF921DFDA7A500BC67B6 /* MessageUIPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageUIPresenter.swift; path = src/FlowControllers/MessageUIPresenter.swift; sourceTree = "<group>"; };
@@ -3126,7 +3126,7 @@
 			isa = PBXGroup;
 			children = (
 				CE20C8FD1DBB133A00C8397A /* SimpleRedux.swift */,
-				CE20C9181DBE7B8200C8397A /* State.swift */,
+				CE20C9181DBE7B8200C8397A /* ReduxState.swift */,
 				CE20C9001DBBFFF800C8397A /* Actions.swift */,
 			);
 			name = SimpleRedux;
@@ -4183,7 +4183,7 @@
 				CE6DCC301E6666470044257B /* NonScrollingCollectionView.swift in Sources */,
 				22A9A9471DF61945000F0016 /* BRAPIProxy.swift in Sources */,
 				CE20C9011DBBFFF800C8397A /* Actions.swift in Sources */,
-				CE20C9191DBE7B8200C8397A /* State.swift in Sources */,
+				CE20C9191DBE7B8200C8397A /* ReduxState.swift in Sources */,
 				CEEC70811E90C04700EF788E /* SeparatorCell.swift in Sources */,
 				CE20C8FE1DBB133A00C8397A /* SimpleRedux.swift in Sources */,
 				22122B721F0B8996000E9AB9 /* BRAPIClient+Events.swift in Sources */,
@@ -4513,7 +4513,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = loafwallet/loafwallet.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4620,7 +4620,7 @@
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = TodayExtension/Info.plist;
@@ -4930,7 +4930,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = loafwallet/loafwallet.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
@@ -4960,7 +4960,7 @@
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = TodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -5060,7 +5060,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = loafwallet/loafwallet.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5092,7 +5092,7 @@
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZV7987N2ZC;
 				INFOPLIST_FILE = TodayExtension/Info.plist;
