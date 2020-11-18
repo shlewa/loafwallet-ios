@@ -33,8 +33,7 @@ enum CustomEvent: String {
     case _20200223_DD = "DID_DONATE"
     case _20200225_DCD = "DID_CANCEL_DONATE"
     case _20200301_DUDFPK = "DID_USE_DEFAULT_FEE_PER_KB"
-    
-    
+    case _20201118_DTS = "DID_TAP_SUPPORT_LF"
 }
 
 struct FoundationSupport {
@@ -48,6 +47,12 @@ struct FoundationSupport {
 
 struct Padding {
     subscript(multiplier: Int) -> CGFloat {
+        get {
+            return CGFloat(multiplier) * 8.0
+        }
+    }
+    
+    subscript(multiplier: Double) -> CGFloat {
         get {
             return CGFloat(multiplier) * 8.0
         }

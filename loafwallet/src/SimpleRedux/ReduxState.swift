@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 struct ReduxState {
     let isStartFlowVisible: Bool
     let isLoginRequired: Bool

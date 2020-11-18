@@ -92,7 +92,7 @@ class AddressCell : UIView {
             scan.centerYAnchor.constraint(equalTo: centerYAnchor) ])
         paste.constrain([
             paste.centerYAnchor.constraint(equalTo: centerYAnchor),
-                            paste.trailingAnchor.constraint(equalTo: scan.leadingAnchor, constant: -5.0) ])
+                            paste.trailingAnchor.constraint(equalTo: scan.leadingAnchor, constant: -C.padding[0.625]) ])
         border.constrain([
             border.leadingAnchor.constraint(equalTo: leadingAnchor),
             border.bottomAnchor.constraint(equalTo: bottomAnchor),

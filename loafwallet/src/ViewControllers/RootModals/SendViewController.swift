@@ -91,17 +91,17 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
             amountView.view.constrain([
                 amountView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 amountView.view.topAnchor.constraint(equalTo: addressCell.bottomAnchor),
-                amountView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor) ])
-        })
+                amountView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor) ]) })
         
         supportLitecoinFoundationCell.view.constrain([
-                                                        supportLitecoinFoundationCell.view.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
-                                                        supportLitecoinFoundationCell.view.topAnchor.constraint(equalTo: amountView.view.bottomAnchor),
-                                                        supportLitecoinFoundationCell.view.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
-                                                        supportLitecoinFoundationCell.view.heightAnchor.constraint(equalToConstant: SendCell.defaultHeight)])
+                supportLitecoinFoundationCell.view.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
+                supportLitecoinFoundationCell.view.topAnchor.constraint(equalTo: amountView.view.bottomAnchor),
+                supportLitecoinFoundationCell.view.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
+                supportLitecoinFoundationCell.view.heightAnchor.constraint(equalToConstant: SendCell.defaultHeight)])
+        
         descriptionCell.constrain([
             descriptionCell.widthAnchor.constraint(equalTo: amountView.view.widthAnchor),
-                                    descriptionCell.topAnchor.constraint(equalTo: supportLitecoinFoundationCell.view.bottomAnchor),
+            descriptionCell.topAnchor.constraint(equalTo: supportLitecoinFoundationCell.view.bottomAnchor),
             descriptionCell.leadingAnchor.constraint(equalTo: amountView.view.leadingAnchor),
             descriptionCell.heightAnchor.constraint(equalTo: descriptionCell.textView.heightAnchor, constant: C.padding[3]) ])
 
@@ -177,7 +177,6 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
             }
         }
             
-            ///Paste in Support Litecoin Foundation address to textField
         supportLitecoinFoundationCell.rootView.viewModel.didGetLTCAddress = { ltcAddress in
             
             ///Paste in Support Litecoin Foundation address to textField
@@ -188,6 +187,10 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
             /// Paste in Memo
             self.descriptionCell.clearPlaceholder()
             self.descriptionCell.textView.text = "Litecoin Foundation"
+            
+            /// Track Support LF Taps
+            LWAnalytics.logEventWithParameters(itemName:._20201118_DTS)
+
         }
     }
 
