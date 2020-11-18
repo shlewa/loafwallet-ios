@@ -248,15 +248,6 @@
 /* Exchange rate label */
 "DefaultCurrency.rateLabel" = "Exchange Rate";
 
-/* Donate Memo */
-"Donate.memo" = "Donation to the Litecoin Foundation";
-
-/* Donate to the Litecoin Foundation */
-"Donate.title" = "Tap to Donate to the Litecoin Foundation!";
-
-/* Donate Confirmation */
-"Donate.title.confirmation" = "Confirm Donation";
-
 /* Email unavailable alert title */
 "ErrorMessages.emailUnavailableMessage" = "This device isn't configured to send email with the iOS mail app.";
 
@@ -1240,12 +1231,6 @@
 
 /* Corruption Error alert title */
 "Alert.corruptionMessage" = "";
-
-/* Donate to the articles */
-"Donate.toThe" = "";
-
-/* Donate */
-"Donate.word" = "";
 
 /* Luxury fee */
 "FeeSelector.luxury" = "";
