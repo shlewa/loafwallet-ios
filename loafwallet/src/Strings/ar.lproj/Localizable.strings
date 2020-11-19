@@ -1241,6 +1241,9 @@
 /* Message for luxury fee */
 "FeeSelector.luxuryMessage" = "";
 
+/* Enter to match domain name to LTC Address */
+"Send.UnstoppableDomains.placeholder" = "";
+
 /* Delete database title */
 "WipeWallet.alertDeleteTitle" = "";
 

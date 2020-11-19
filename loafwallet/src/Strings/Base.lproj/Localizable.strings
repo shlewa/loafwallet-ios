@@ -1266,3 +1266,7 @@
 
 /* Support the Litecoin Foundation */
 "SupportTheFoundation.title" = "Support the Litecoin Foundation";
+
+/* Enter to match domain name to LTC Address */
+"Send.UnstoppableDomains.placeholder" = "Enter a domain name";
+ 
