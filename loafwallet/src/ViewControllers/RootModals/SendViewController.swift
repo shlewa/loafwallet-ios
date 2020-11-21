@@ -198,7 +198,14 @@ class SendViewController : UIViewController, Subscriber, ModalPresentable, Track
             
             /// Track Support LF Taps
             LWAnalytics.logEventWithParameters(itemName:._20201118_DTS)
+        }
+        
+        unstoppableCell.rootView.viewModel.didResolveUDAddress = { resolvedUDAddress in
             
+            ///Paste in Unstoppable Domain resolved LTC address to textField
+            self.addressCell.textField.text = resolvedUDAddress
+            self.addressCell.textField.becomeFirstResponder()
+            self.addressCell.textField.isHidden = false
         }
     }
     
