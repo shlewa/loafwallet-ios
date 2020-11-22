@@ -48,9 +48,9 @@ struct FoundationSupport {
 struct APIServer {
      
     #if DEBUG
-    static let url = "https://api-stage.lite-wallet.org/"
+    static let baseUrl = "https://api-stage.lite-wallet.org/"
     #else
-    static let url = "https://api-prod.lite-wallet.org/"
+    static let baseUrl = "https://api-prod.lite-wallet.org/"
     #endif
 }
 
