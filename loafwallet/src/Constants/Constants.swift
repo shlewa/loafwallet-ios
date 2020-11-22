@@ -45,6 +45,15 @@ struct FoundationSupport {
     static let supportLTCAddress = "MVZj7gBRwcVpa9AAWdJm8A3HqTst112eJe"
 }
 
+struct APIServer {
+     
+    #if DEBUG
+    static let url = "https://api-stage.lite-wallet.org/"
+    #else
+    static let url = "https://api-prod.lite-wallet.org/"
+    #endif
+}
+
 struct Padding {
     subscript(multiplier: Int) -> CGFloat {
         get {
