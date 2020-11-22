@@ -70,7 +70,7 @@ class BuyWKWebViewController: UIViewController, WKNavigationDelegate, WKScriptMe
         self.wkWebContainerView.addSubview(wkWebView)
         
         let timestamp = Int(appInstallDate.timeIntervalSince1970)
-        let urlString =  APIServer.url + "?address=\(currentWalletAddress)&code=\(currencyCode)&idate=\(timestamp)&uid=\(uuidString)"
+        let urlString =  APIServer.baseUrl + "?address=\(currentWalletAddress)&code=\(currencyCode)&idate=\(timestamp)&uid=\(uuidString)"
          
         guard let url = URL(string: urlString) else {
         NSLog("ERROR: URL not initialized")
