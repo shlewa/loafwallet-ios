@@ -49,11 +49,31 @@ struct FoundationSupport {
 }
 
 struct RPCIFNS {
-     
+      
+    enum Address: String {
+        case primary = "https://mainnet.infura.io/v3/"
+    }
+}
+
+struct PartnerKeys {
+    
+    var changeNowKey: String = ""
+    
     /// Used for UD to make the domain name lookup
     /// DEV: Review for the final order when users leverage the service
-    enum Address: String {
-        case primary = "https://mainnet.infura.io/v3/133cd3eb9adb448ebbe811ca08cfcbdf"
+    var infuraKey: String = ""
+     
+    init(){
+        loadFile()
+    }
+    
+    private mutating func loadFile() {
+        
+        if let apiFile = Bundle.main.path(forResource: "partner-keys", ofType: "plist") {
+            let dict = NSDictionary(contentsOfFile: apiFile)
+            self.changeNowKey = dict?["change-now-api"] as? String ?? ""
+            self.infuraKey = dict?["infura-api"] as? String ?? ""
+        }
     }
 }
 
